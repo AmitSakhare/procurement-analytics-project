@@ -78,6 +78,7 @@ CREATE TABLE inventory (
     reorder_level DECIMAL(10,2),
     daily_usage DECIMAL(10,2),
     warehouse_location VARCHAR(100),
+    states VARCHAR(100),
 
     -- Foreign key linking to materials table
     CONSTRAINT fk_inventory_material
