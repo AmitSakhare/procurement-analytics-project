@@ -1,4 +1,4 @@
-inventory_id,material_id,stock_qty,reorder_level,daily_usage,warehouse_location,state
+inventory_id,material_id,stock_qty,reorder_level,daily_usage,warehouse_location,states
 1,1,279.84,45.35,4.55,Indore,Madhya Pradesh
 2,2,261.38,49.71,5.4,Delhi,Delhi
 3,3,97.08,75.53,2.79,Indore,Madhya Pradesh
@@ -4999,3 +4999,4 @@ inventory_id,material_id,stock_qty,reorder_level,daily_usage,warehouse_location,
 4998,4998,89.12,42.78,2.56,Guwahati,Assam
 4999,4999,66.94,22.09,6.73,Delhi,Delhi
 5000,5000,114.22,30.92,4.86,Bengaluru,Karnataka
+
