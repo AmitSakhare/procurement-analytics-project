@@ -1,62 +1,54 @@
-/* Procurement Spend Analysis */ 
--------------------------------------------------------------------------
--- Analyze procurement spend per month
-SELECT YEAR(order_date) AS year,
-MONTH(order_date) AS month,
-SUM(total_value) AS monthly_spend
-FROM purchase_orders
-GROUP BY YEAR(order_date), MONTH(order_date)
-ORDER BY year, month;
+===============================================================================
+PROCUREMENT SPEND ANALYSIS
+===============================================================================
 
--- Annual procurement expenditure
-SELECT YEAR(order_date) AS year,
-       SUM(total_value) AS yearly_spend
-FROM purchase_orders
-GROUP BY YEAR(order_date);
-
--- Find the largest purchase order
-SELECT TOP 1 *
-FROM purchase_orders
-ORDER BY total_value DESC;
-
--- Average procurement transaction value
-SELECT AVG(total_value)
+===============================================================================
+-- Query - Total Procurement Spend
+-- Purpose:- Identify spend of total procurement of purchase order.
+===============================================================================
+       
+SELECT 
+       SUM(total_value) AS total_procurement_spend
 FROM purchase_orders;
 
--- Identify materials that require replenishment
-SELECT m.material_name,
-i.stock_qty,
-i.reorder_level
-FROM inventory i
-JOIN materials m
-ON i.material_id = m.material_id
-WHERE stock_qty < reorder_level;
+===============================================================================
+-- Query - Monthly Procurement Spend
+-- Purpose:- Identify spend of total procurement of purchase order monthwise.
+===============================================================================
 
--- Calculate remaining days before stock runs out
-SELECT m.material_name,
-stock_qty / daily_usage AS days_remaining
-FROM inventory i
-JOIN materials m
-ON i.material_id = m.material_id;
+SELECT 
+       YEAR(order_date) AS year,
+       MONTH(order_date) AS month,
+       SUM(total_value) AS monthly_spend
+FROM purchase_orders
+GROUP BY year, month
+ORDER BY year, month;
 
--- Total stock across warehouse locations
-SELECT warehouse_location,
-SUM(stock_qty) AS total_stock
-FROM inventory
-GROUP BY warehouse_location;
+===============================================================================
+-- Query - Yearly Procurement Spend
+-- Purpose:- Identify spend of total procurement of purchase order Yearly.
+===============================================================================
 
--- Understand material consumption rate
-SELECT m.material_name,
-AVG(daily_usage) AS avg_daily_usage
-FROM inventory i
-JOIN materials m
-ON i.material_id = m.material_id
-GROUP BY m.material_name;
+SELECT 
+       YEAR(order_date) AS year,
+       SUM(total_value) AS yearly_spend
+FROM purchase_orders
+GROUP BY year;
 
---Highest Inventory Materials
-SELECT m.material_name,
-stock_qty
-FROM inventory i
-JOIN materials m
-ON i.material_id = m.material_id
-ORDER BY stock_qty DESC;
+===============================================================================
+-- Query - Highest Purchase Order
+-- Purpose:- Identify of Highest  of purchase order .
+===============================================================================
+SELECT *
+       FROM purchase_orders
+       ORDER BY total_value DESC
+LIMIT 1;
+
+===============================================================================
+-- Query - Average Purchase Order Value
+-- Purpose:- Identify of Average of purchase order .
+===============================================================================
+       
+SELECT 
+       AVG(total_value) AS avg_order_value
+FROM purchase_orders;
